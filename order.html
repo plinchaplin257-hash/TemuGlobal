@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Riwayat Pembelian</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #ff8c1a, #ff6a00);
+  padding-bottom: 70px;
+}
+
+.header {
+  background: #cc5a00;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.container {
+  padding: 15px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.row {
+  display: flex;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.label {
+  width: 90px;
+  font-weight: bold;
+}
+
+.value {
+  flex: 1;
+}
+
+.empty {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #cc5a00;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  color: #fff;
+}
+
+.active {
+  color: #00ff6a;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="header">RIWAYAT PEMBELIAN</div>
+
+<div class="container" id="orderContainer"></div>
+
+<div class="nav">
+  <div onclick="location.href='home.html'">HOME</div>
+  <div class="active">ORDER</div>
+  <div>MINE</div>
+</div>
+
+<script>
+const username = localStorage.getItem('username_login') || 'guest';
+const key = `orderHistory_${username}`;
+const orders = JSON.parse(localStorage.getItem(key)) || [];
+
+const container = document.getElementById('orderContainer');
+
+if (orders.length === 0) {
+  container.innerHTML = '<div class="empty">Belum ada riwayat pembelian</div>';
+} else {
+  orders.reverse().forEach(o => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    card.innerHTML = `
+      <div class="row"><div class="label">BRAND</div><div class="value">: ${o.brand}</div></div>
+      <div class="row"><div class="label">JENIS</div><div class="value">: ${o.jenis}</div></div>
+      <div class="row"><div class="label">WAKTU</div><div class="value">: ${o.tanggal}</div></div>
+      <div class="row"><div class="label">NOMINAL</div><div class="value">: Rp ${o.total.toLocaleString('id-ID')}</div></div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+</script>
+
+</body>
+</html>
