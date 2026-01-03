@@ -311,8 +311,20 @@ menuBtns.forEach(btn => {
         btn.classList.add("active");
     };
 });
+<script>
+/* ===== CEK LOGIN ===== */
+if (localStorage.getItem("isLogin") !== "true") {
+    location.href = "index.html";
+}
+
+/* ===== BOTTOM MENU NAV ===== */
+function goOrder(){
+    location.href = "order.html";
+}
 </script>
+
 
 </body>
 </html>
+
 
