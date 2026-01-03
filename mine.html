@@ -69,6 +69,7 @@ body{
     padding:5px 12px;
     font-size:12px;
     border-radius:999px;
+    cursor:pointer;
 }
 
 /* MENU */
@@ -86,6 +87,7 @@ body{
     text-align:left;
     border-radius:999px;
     transition:transform .08s ease, background .08s ease;
+    cursor:pointer;
 }
 
 /* EFEK HIDUP */
@@ -146,12 +148,12 @@ body{
 
     <button class="menu-btn disabled">SKOR POINT : 100</button>
 
-    <!-- Tambahan tombol sesuai gambar -->
     <button class="menu-btn" onclick="go('catatan-penarikan.html')">CATATAN PENARIKAN</button>
     <button class="menu-btn" onclick="go('catatan-deposit.html')">CATATAN DEPOSIT</button>
     <button class="menu-btn" onclick="go('verifikasi.html')">VERIFIKASI AKUN</button>
     <button class="menu-btn" onclick="go('keamanan.html')">PENGATURAN KEAMANAN</button>
-    <button class="menu-btn" onclick="go('keluar.html')">KELUAR</button>
+    <!-- Tombol keluar sudah diperbaiki -->
+    <button class="menu-btn" onclick="logout()">KELUAR</button>
 </div>
 
 <div class="nav">
@@ -165,9 +167,11 @@ body{
 const img = document.getElementById("avatarImg");
 const input = document.getElementById("fileInput");
 
+// Load avatar dari localStorage jika ada
 const saved = localStorage.getItem("avatar");
 if(saved) img.src = saved;
 
+// Fungsi ganti avatar
 function pickAvatar(){
     input.click();
 }
@@ -175,18 +179,27 @@ function pickAvatar(){
 input.onchange = ()=>{
     const file = input.files[0];
     if(file){
-        const r = new FileReader();
-        r.onload = e=>{
+        const reader = new FileReader();
+        reader.onload = e=>{
             img.src = e.target.result;
-            localStorage.setItem("avatar", e.target.result);
+            localStorage.setItem("avatar", e.target.result); // simpan avatar
         };
-        r.readAsDataURL(file);
+        reader.readAsDataURL(file);
     }
 };
 
 /* NAVIGASI */
 function go(page){
     location.href = page;
+}
+
+/* LOGOUT */
+function logout(){
+    // Hapus data yang perlu di-reset saat logout
+    localStorage.removeItem("avatar");
+    localStorage.removeItem("isLoggedIn"); // jika ada status login
+    // Redirect ke halaman login
+    location.href = "login.html";
 }
 </script>
 
