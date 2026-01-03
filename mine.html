@@ -199,8 +199,13 @@ function logout(){
     localStorage.removeItem("avatar");
     location.href = "index.html";
 }
+<script>
+if (localStorage.getItem("isLogin") !== "true") {
+    location.href = "index.html";
+}
 </script>
 
 </body>
 </html>
+
 
