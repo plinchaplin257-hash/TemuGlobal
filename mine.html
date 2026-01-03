@@ -195,13 +195,12 @@ function go(page){
 
 /* LOGOUT */
 function logout(){
-    // Hapus data yang perlu di-reset saat logout
+    localStorage.removeItem("isLogin");
     localStorage.removeItem("avatar");
-    localStorage.removeItem("isLoggedIn"); // jika ada status login
-    // Redirect ke halaman login
-    location.href = "login.html";
+    location.href = "index.html";
 }
 </script>
 
 </body>
 </html>
+
